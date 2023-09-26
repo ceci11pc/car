@@ -7,7 +7,8 @@ public class FollowPlayer : MonoBehaviour
     //para poder tener la posicion del auto
     public GameObject player;
     // para que la camara este arriba y no justo en el medio del auto
-    private Vector3 offset = new Vector3(0, 0, 2.65f);
+    private Vector3 offset = new Vector3(0, 1f, 1f);
+   
 
     void Start()
     {
@@ -18,5 +19,6 @@ public class FollowPlayer : MonoBehaviour
     void LateUpdate()
     {
         transform.position = player.transform.position + offset;
+
     }
 }

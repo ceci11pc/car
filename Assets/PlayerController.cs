@@ -1,30 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Profiling.RawFrameDataView;
 
 public class PlayerController : MonoBehaviour
 {
-
-    
     private float turnSpeed = 5.0f;
     private float horizontalInput;
+
     public float revs;
-    public float fowardInput; // creo que es el load 0 o 1 al pulsar 
+    public float fowardInput; 
     public float speed;
-    //public float load;
+
+    public MeterScript speedMeter; //meter code
+    public int currentSpeed; //meter code
+    public int maxSpeed = 50; //meter code
+
+
+    FMOD.Studio.EventInstance fmodCrashEvent;
+    public string fmodEvent = null;
+
+    private string[] collisionTag;
+    private bool useParameter;
+    private string parameterName;
+    private float minCollisionVolume = 0.8f;
+    private float maxCollisionVelocity = 5f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        speedMeter.SetMaxSpeed(maxSpeed); //meter code
+}
 
     // Update is called once per frame
     void Update()
     {
+        currentSpeed = (int)speed;
+        Debug.Log("currentSpeed    "  +currentSpeed);
+        speedMeter.SetSpeed(currentSpeed); //meter code
+
         horizontalInput = Input.GetAxis("Horizontal");
         fowardInput = Input.GetAxis("Vertical");
-        //load = fowardInput > 0 ? 1 : 0;
 
 
         //si esta acelerando y la speed no llegó al max, y revs no llegó al max sube la speed y revs
@@ -65,6 +82,54 @@ public class PlayerController : MonoBehaviour
 
 
     transform.Translate(speed * Time.deltaTime * Vector3.forward , Space.World);
-        transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
+    transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+     
+
+        if (collision.gameObject.tag == "Car")
+            {
+            
+            
+
+            float parameterValue = CalculateImpactVolume(collision.relativeVelocity.magnitude);
+            if (parameterValue < minCollisionVolume)
+            {
+                Debug.Log("Choque chico  " + parameterValue);
+                speed /= 2;
+            }
+            else if (parameterValue >= minCollisionVolume)
+            {
+                float currentZ = transform.position.z;
+                Debug.Log("Choque mortal  "  + minCollisionVolume + parameterValue);
+                speed = 0;
+            }
+
+
+
+
+
+            fmodCrashEvent = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
+                fmodCrashEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+                fmodCrashEvent.start();
+                fmodCrashEvent.release();
+            }
+       
+    }
+
+    private float CalculateImpactVolume(float speed)
+    {
+        float volume;
+        volume = CubicEaseOut(speed);
+        return volume;
+    }
+
+    private float CubicEaseOut(float velocity, float startingValue = 0, float changeInValue = 1)
+    {
+        return changeInValue * ((velocity = velocity / maxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
+    }
+
 }

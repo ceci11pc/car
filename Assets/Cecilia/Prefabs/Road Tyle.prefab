@@ -279,6 +279,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadTyle: {fileID: 7986503658331629169}
+  carObstacles:
+  - {fileID: 9056806534228880717, guid: cdc0a26d05261f34991233505ea482c4, type: 3}
+  - {fileID: 8095988858278332884, guid: d7a121fbe20fe294ebc3c1531111d171, type: 3}
+  - {fileID: 4855816844429417729, guid: 45879a32a80365d4887c3b97646ba18a, type: 3}
+  - {fileID: 9179037735583004403, guid: 52cbfbb167b6f444da5080650ba66bfd, type: 3}
 --- !u!1 &273847962574147455
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +721,7 @@ GameObject:
   - component: {fileID: 2334880169634295398}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5811,7 +5816,7 @@ GameObject:
   - component: {fileID: 4177182499499499649}
   m_Layer: 0
   m_Name: Road Tyle Asphalt
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
