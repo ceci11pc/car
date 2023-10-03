@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2655591013881736288}
   - component: {fileID: 1899542329908592082}
   - component: {fileID: 1010938768088213087}
+  - component: {fileID: 8892961170670599935}
+  - component: {fileID: 2961110532885438314}
   m_Layer: 0
   m_Name: Plane.014
   m_TagString: Car
@@ -155,6 +157,49 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8892961170670599935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9056806534228880717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1437455620
+      Data2: 1109452901
+      Data3: -1048328821
+      Data4: -1427455028
+    Path: event:/CAROBSTACLEENGINE
+  Event: 
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 6
+  OverrideMaxDistance: 100
+--- !u!114 &2961110532885438314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9056806534228880717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5cc1d9436984b4ab6929b8aba2e736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1594008841417209165
 PrefabInstance:
   m_ObjectHideFlags: 0

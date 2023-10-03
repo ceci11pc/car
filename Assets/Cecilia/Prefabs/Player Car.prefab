@@ -112,7 +112,6 @@ MonoBehaviour:
   speedMeter: {fileID: 0}
   currentSpeed: 0
   maxSpeed: 50
-  fmodEvent: 
 --- !u!54 &6310241950258379108
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -287,11 +286,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364554009551344899}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c595cb3070b7b648ab489c4ccb6aa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distance: 0.85
 --- !u!4 &1847617177915805625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: befd9dedc614d644fbd99862495aaf53, type: 3}
@@ -365,6 +365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torus.027 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: befd9dedc614d644fbd99862495aaf53, type: 3}
+      propertyPath: m_TagString
+      value: Right
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -415,6 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c595cb3070b7b648ab489c4ccb6aa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distance: 1
 --- !u!4 &1767004324832747207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: befd9dedc614d644fbd99862495aaf53, type: 3}
@@ -529,11 +534,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5030297965474097613}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c595cb3070b7b648ab489c4ccb6aa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distance: 1
 --- !u!4 &5657899874608509815 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: befd9dedc614d644fbd99862495aaf53, type: 3}
@@ -607,6 +613,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torus.027 (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: befd9dedc614d644fbd99862495aaf53, type: 3}
+      propertyPath: m_TagString
+      value: Left
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -657,6 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c595cb3070b7b648ab489c4ccb6aa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distance: 1
 --- !u!4 &6374085146292312744 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: befd9dedc614d644fbd99862495aaf53, type: 3}

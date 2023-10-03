@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     public int maxSpeed = 50; //meter code
 
 
-    FMOD.Studio.EventInstance fmodCrashEvent;
-    public string fmodEvent = null;
+    FMOD.Studio.EventInstance crash;
+    FMOD.Studio.EventInstance bigcrash;
 
     private string[] collisionTag;
     private bool useParameter;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         currentSpeed = (int)speed;
-        Debug.Log("currentSpeed    "  +currentSpeed);
+        Debug.Log("currentSpeed    "  + currentSpeed);
         speedMeter.SetSpeed(currentSpeed); //meter code
 
         horizontalInput = Input.GetAxis("Horizontal");
@@ -77,47 +77,38 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
-
-
-
     transform.Translate(speed * Time.deltaTime * Vector3.forward , Space.World);
     transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
-     
-
         if (collision.gameObject.tag == "Car")
             {
-            
-            
-
             float parameterValue = CalculateImpactVolume(collision.relativeVelocity.magnitude);
             if (parameterValue < minCollisionVolume)
             {
                 Debug.Log("Choque chico  " + parameterValue);
+                crash = FMODUnity.RuntimeManager.CreateInstance("event:/CRASH");
+                FMODUnity.RuntimeManager.AttachInstanceToGameObject(crash, collision.gameObject.GetComponent<Transform>(), collision.gameObject.GetComponent<Rigidbody>());
+                crash.start();
+                crash.release();
                 speed /= 2;
             }
             else if (parameterValue >= minCollisionVolume)
             {
                 float currentZ = transform.position.z;
                 Debug.Log("Choque mortal  "  + minCollisionVolume + parameterValue);
+                bigcrash = FMODUnity.RuntimeManager.CreateInstance("event:/BIGCRASH");
+                FMODUnity.RuntimeManager.AttachInstanceToGameObject(bigcrash, collision.gameObject.GetComponent<Transform>(), collision.gameObject.GetComponent<Rigidbody>());
+                bigcrash.start();
                 speed = 0;
             }
 
+          
+        }
 
-
-
-
-            fmodCrashEvent = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
-                fmodCrashEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-
-                fmodCrashEvent.start();
-                fmodCrashEvent.release();
-            }
-       
     }
 
     private float CalculateImpactVolume(float speed)
