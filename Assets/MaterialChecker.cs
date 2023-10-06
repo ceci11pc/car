@@ -48,6 +48,12 @@ public class MaterialChecker : MonoBehaviour
         Debug.Log("material  " + Material );
     }
 
+    void OnDestroy()
+    {
+        tyres.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        tyres.release();
+    }
+
     void MaterialCheck()
     {
         Ray theRay = new Ray(transform.position + checkOffset, direction);

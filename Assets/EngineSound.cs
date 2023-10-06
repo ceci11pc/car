@@ -45,4 +45,10 @@ public class EngineSound : MonoBehaviour
         
 
     }
+
+    void OnDestroy()
+    {
+        engine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        engine.release();
+    }
 }

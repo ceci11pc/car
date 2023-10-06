@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
                 bigcrash = FMODUnity.RuntimeManager.CreateInstance("event:/BIGCRASH");
                 FMODUnity.RuntimeManager.AttachInstanceToGameObject(bigcrash, collision.gameObject.GetComponent<Transform>(), collision.gameObject.GetComponent<Rigidbody>());
                 bigcrash.start();
+                bigcrash.release();
                 speed = 0;
             }
 
