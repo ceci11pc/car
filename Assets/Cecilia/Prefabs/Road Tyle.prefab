@@ -279,6 +279,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadTyle: {fileID: 7986503658331629169}
+  animals:
+  - {fileID: 6232646176114848795, guid: 8381033f06ecf17488f9a934e5ca5d7b, type: 3}
+  - {fileID: 5952243856896319466, guid: fe0ca18761b4f074c8cde4ce64217207, type: 3}
+  - {fileID: 2144127861526307171, guid: 9ed668e2042306c489b6fdd254fe0986, type: 3}
+  - {fileID: 1770363453949785604, guid: 550d111cb02f94348bf7d1b24aaeed67, type: 3}
+  - {fileID: 3068346352688102347, guid: c0f031af6857aba43a9e915bff60287f, type: 3}
   carObstacles:
   - {fileID: 9056806534228880717, guid: cdc0a26d05261f34991233505ea482c4, type: 3}
   - {fileID: 8095988858278332884, guid: d7a121fbe20fe294ebc3c1531111d171, type: 3}

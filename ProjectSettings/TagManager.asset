@@ -9,6 +9,7 @@ TagManager:
   - Terrain
   - Left
   - Right
+  - Animal
   layers:
   - Default
   - TransparentFX

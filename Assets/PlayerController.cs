@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Profiling.RawFrameDataView;
 
 public class PlayerController : MonoBehaviour
@@ -9,12 +10,14 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
 
     public float revs;
-    public float fowardInput; 
+    public float fowardInput;
     public float speed;
 
     public MeterScript speedMeter; //meter code
     public int currentSpeed; //meter code
     public int maxSpeed = 50; //meter code
+    public int score;
+    public Score playerScore;
 
 
     FMOD.Studio.EventInstance crash;
@@ -26,18 +29,22 @@ public class PlayerController : MonoBehaviour
     private float minCollisionVolume = 0.8f;
     private float maxCollisionVelocity = 5f;
 
+    private IEnumerator coroutine;
 
     // Start is called before the first frame update
     void Start()
     {
+        score = 0;
         speedMeter.SetMaxSpeed(maxSpeed); //meter code
-}
+        playerScore.SetScore(score);
+
+    }
 
     // Update is called once per frame
     void Update()
     {
         currentSpeed = (int)speed;
-        Debug.Log("currentSpeed    "  + currentSpeed);
+
         speedMeter.SetSpeed(currentSpeed); //meter code
 
         horizontalInput = Input.GetAxis("Horizontal");
@@ -45,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
 
         //si esta acelerando y la speed no llegó al max, y revs no llegó al max sube la speed y revs
-        if(fowardInput > 0 && speed < 50 && revs < 1)
+        if (fowardInput > 0 && speed < 50 && revs < 1)
         {
             speed += 0.1f;
             revs += 0.005f;
@@ -64,32 +71,32 @@ public class PlayerController : MonoBehaviour
             speed = 50;
         }
         //si no está acelerando y no está frenado, bajá la speed
-        else if (fowardInput <= 0 && speed >= 0.5f) 
+        else if (fowardInput <= 0 && speed >= 0.5f)
         {
             speed -= 0.5f;
             revs -= 0.1f;
         }
         //sino, la speed es 0
-         else
+        else
         {
-        speed = 0f;
-         revs = 0;
+            speed = 0f;
+            revs = 0;
         }
 
 
-    transform.Translate(speed * Time.deltaTime * Vector3.forward , Space.World);
-    transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
+        transform.Translate(speed * Time.deltaTime * Vector3.forward, Space.World);
+        transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Car")
-            {
+        {
             float parameterValue = CalculateImpactVolume(collision.relativeVelocity.magnitude);
             if (parameterValue < minCollisionVolume)
             {
-                Debug.Log("Choque chico  " + parameterValue);
+
                 crash = FMODUnity.RuntimeManager.CreateInstance("event:/CRASH");
                 FMODUnity.RuntimeManager.AttachInstanceToGameObject(crash, collision.gameObject.GetComponent<Transform>(), collision.gameObject.GetComponent<Rigidbody>());
                 crash.start();
@@ -99,18 +106,32 @@ public class PlayerController : MonoBehaviour
             else if (parameterValue >= minCollisionVolume)
             {
                 float currentZ = transform.position.z;
-                Debug.Log("Choque mortal  "  + minCollisionVolume + parameterValue);
+                Debug.Log("Choque mortal  " + minCollisionVolume + parameterValue);
                 bigcrash = FMODUnity.RuntimeManager.CreateInstance("event:/BIGCRASH");
                 FMODUnity.RuntimeManager.AttachInstanceToGameObject(bigcrash, collision.gameObject.GetComponent<Transform>(), collision.gameObject.GetComponent<Rigidbody>());
                 bigcrash.start();
                 bigcrash.release();
                 speed = 0;
+
+                coroutine = Wait(2.5f);
+                StartCoroutine(coroutine);
+
+                
             }
 
-          
+
         }
 
+
     }
+
+    public void ScoreUpdate()
+    {
+        score++;
+        playerScore.SetScore(score);
+
+    }
+
 
     private float CalculateImpactVolume(float speed)
     {
@@ -124,4 +145,10 @@ public class PlayerController : MonoBehaviour
         return changeInValue * ((velocity = velocity / maxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
     }
 
+    private IEnumerator Wait(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene("SampleScene");
+
+    }
 }
