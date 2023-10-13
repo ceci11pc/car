@@ -10,6 +10,10 @@ public class CollisionDetection : MonoBehaviour
     private Vector3 offsetPosition;
     private Vector3 offsetAnimalPositionLeft;
     private Vector3 offsetAnimalPositionRight;
+    private GameObject car;
+    private Vector3 playerPosition;
+    private GameObject animalRight;
+    private GameObject animalLeft;
     public GameObject roadTyle;
     public GameObject[] animals ;
     public GameObject[] carObstacles;
@@ -33,12 +37,12 @@ public class CollisionDetection : MonoBehaviour
 
             roadTyle.transform.Translate(Vector3.forward * 390);
    
-            Instantiate(GetRandomItem(carObstacles), transform.position +  offsetPosition, Quaternion.identity);
+            car = Instantiate(GetRandomItem(carObstacles), transform.position +  offsetPosition, Quaternion.identity);
             
-            GameObject animalLeft = (GameObject)Instantiate(GetRandomItem(animals), transform.position + offsetAnimalPositionLeft, Quaternion.identity);
+            animalLeft = Instantiate(GetRandomItem(animals), transform.position + offsetAnimalPositionLeft, Quaternion.identity);
             animalLeft.transform.Rotate(new Vector3(0, NextFloat(13f, 130f), 0));
 
-            GameObject animalRight = (GameObject)Instantiate(GetRandomItem(animals), transform.position + offsetAnimalPositionRight, Quaternion.identity);
+            animalRight = Instantiate(GetRandomItem(animals), transform.position + offsetAnimalPositionRight, Quaternion.identity);
             animalRight.transform.Rotate(new Vector3(0, NextFloat(-13f, -130f), 0));
 
 
@@ -47,7 +51,26 @@ public class CollisionDetection : MonoBehaviour
         // Update is called once per frame
         void Update()
     {
-        
+        playerPosition = GameObject.Find("Player Car").transform.position;
+
+        if (car && car.transform.position.z < playerPosition.z)
+        {
+            Destroy(car);
+        }
+
+
+        //NO ANDA DESTROY DE ANIMALES
+        if (animalLeft && animalLeft.transform.position.z < playerPosition.z)
+        {
+
+            Debug.Log("ACA ANIMAL");
+            Destroy(animalLeft);
+        }
+
+        if (animalRight && animalRight.transform.position.z < playerPosition.z)
+        {
+            Destroy(animalRight);
+        }
     }
 
 

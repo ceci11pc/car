@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Profiling.RawFrameDataView;
+
 
 public class PlayerController : MonoBehaviour
 {
-    private float turnSpeed = 5.0f;
-    private float horizontalInput;
+
 
     public float revs;
     public float fowardInput;
@@ -19,15 +18,24 @@ public class PlayerController : MonoBehaviour
     public int score;
     public Score playerScore;
 
+    public GameObject menu;
 
     FMOD.Studio.EventInstance crash;
     FMOD.Studio.EventInstance bigcrash;
+    FMOD.Studio.EventInstance scoreup;
 
     private string[] collisionTag;
     private bool useParameter;
     private string parameterName;
     private float minCollisionVolume = 0.8f;
     private float maxCollisionVelocity = 5f;
+
+    private float turnSpeed = 5.0f;
+    private float horizontalInput;
+    private float cancelInput;
+
+    //0 = pause 1 = playing
+    private int gameState;
 
     private IEnumerator coroutine;
 
@@ -37,6 +45,7 @@ public class PlayerController : MonoBehaviour
         score = 0;
         speedMeter.SetMaxSpeed(maxSpeed); //meter code
         playerScore.SetScore(score);
+        
 
     }
 
@@ -46,11 +55,14 @@ public class PlayerController : MonoBehaviour
         currentSpeed = (int)speed;
 
         speedMeter.SetSpeed(currentSpeed); //meter code
+        cancelInput = Input.GetAxis("Cancel");
 
+        
         horizontalInput = Input.GetAxis("Horizontal");
         fowardInput = Input.GetAxis("Vertical");
-
-
+        
+        
+     
         //si esta acelerando y la speed no llegó al max, y revs no llegó al max sube la speed y revs
         if (fowardInput > 0 && speed < 50 && revs < 1)
         {
@@ -83,9 +95,25 @@ public class PlayerController : MonoBehaviour
             revs = 0;
         }
 
+        if (GameObject.Find("PauseMenuCanvas Variant(Clone)") && speed >= 0.5f )
+        {
+            speed -= 0.5f;
+        }    
+            transform.Translate(speed * Time.deltaTime * Vector3.forward, Space.World);
+            transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
+        
+        if (cancelInput == 1 && (GameObject.Find("PauseMenuCanvas Variant(Clone)") == false))
+        {
+            Instantiate(menu);
 
-        transform.Translate(speed * Time.deltaTime * Vector3.forward, Space.World);
-        transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
+            //revisar solo destruye uno de cada)
+            Destroy(GameObject.Find("Plane.014(Clone)"));
+            Destroy(GameObject.Find("Plane.015(Clone)"));
+            Destroy(GameObject.Find("Plane.030(Clone)"));
+            Destroy(GameObject.Find("Plane.035(Clone)"));
+        }
+
+
     }
 
 
@@ -112,7 +140,8 @@ public class PlayerController : MonoBehaviour
                 bigcrash.start();
                 bigcrash.release();
                 speed = 0;
-
+                horizontalInput = 0f;
+                fowardInput = 0f;
                 coroutine = Wait(2.5f);
                 StartCoroutine(coroutine);
 
@@ -129,7 +158,9 @@ public class PlayerController : MonoBehaviour
     {
         score++;
         playerScore.SetScore(score);
-
+        scoreup = FMODUnity.RuntimeManager.CreateInstance("event:/SCOREUP");
+        scoreup.start();
+        scoreup.release();
     }
 
 

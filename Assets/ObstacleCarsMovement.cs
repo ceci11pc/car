@@ -17,6 +17,8 @@ public class ObstacleCarsMovement : MonoBehaviour
     void Update()
     {
         transform.Translate(-speed * Time.deltaTime * Vector3.forward, Space.World);
+
+     
     }
 
     static float NextFloat(float min, float max)
@@ -25,4 +27,6 @@ public class ObstacleCarsMovement : MonoBehaviour
         double val = (random.NextDouble() * (max - min) + min);
         return (float)val;
     }
+
+    
 }

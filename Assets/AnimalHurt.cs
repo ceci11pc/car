@@ -7,7 +7,9 @@ public class AnimalHurt : MonoBehaviour
 {
 
     private PlayerController player;
+    private IEnumerator coroutine;
 
+    FMOD.Studio.EventInstance animalhit;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +29,21 @@ public class AnimalHurt : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            animalhit = FMODUnity.RuntimeManager.CreateInstance("event:/ANIMALHIT");
+            animalhit.start();
+            animalhit.release();
 
-           
-            Debug.Log("score nueviii  " );
-          player.ScoreUpdate();
-            Debug.Log("score  OK" );
+            coroutine = Wait(0.5f);
+            StartCoroutine(coroutine);
+
 
         }
+    }
+
+    private IEnumerator Wait(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        player.ScoreUpdate();
+
     }
 }
