@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+        
     public GameObject menu;
     public void OnPlayButton()
     {
@@ -13,7 +14,7 @@ public class Menu : MonoBehaviour
 
     public void OnPlayButtonOnPause()
     {
-        Debug.Log("FUCK");
+        
         menu = GameObject.Find("PauseMenuCanvas Variant(Clone)");
         Destroy(menu);
     }

@@ -935,10 +935,6 @@ PrefabInstance:
       value: Player Car
       objectReference: {fileID: 0}
     - target: {fileID: 1912364800586877874, guid: ae6946bbbd12fb44cb08fb0cf7e8f4f1, type: 3}
-      propertyPath: menu
-      value: 
-      objectReference: {fileID: 6631501452437778046, guid: 7b055d5eafe8e458395264991ba9907a, type: 3}
-    - target: {fileID: 1912364800586877874, guid: ae6946bbbd12fb44cb08fb0cf7e8f4f1, type: 3}
       propertyPath: speedMeter
       value: 
       objectReference: {fileID: 321213036}
@@ -946,6 +942,10 @@ PrefabInstance:
       propertyPath: playerScore
       value: 
       objectReference: {fileID: 764899372}
+    - target: {fileID: 9134260201724222674, guid: ae6946bbbd12fb44cb08fb0cf7e8f4f1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -478,6 +478,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4884420871894619021, guid: 2a96e7c956b06405cbf58ef3222eb814, type: 3}
+      propertyPath: bank
+      value: Master
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

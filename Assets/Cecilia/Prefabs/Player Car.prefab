@@ -114,7 +114,7 @@ MonoBehaviour:
   maxSpeed: 50
   score: 0
   playerScore: {fileID: 0}
-  menu: {fileID: 1554520561647482376, guid: 2a96e7c956b06405cbf58ef3222eb814, type: 3}
+  menu: {fileID: 6631501452437778046, guid: 7b055d5eafe8e458395264991ba9907a, type: 3}
 --- !u!54 &6310241950258379108
 Rigidbody:
   m_ObjectHideFlags: 0
