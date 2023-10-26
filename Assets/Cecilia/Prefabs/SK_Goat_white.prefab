@@ -2483,6 +2483,7 @@ GameObject:
   - component: {fileID: 4116213644714448700}
   - component: {fileID: 1271198011821365746}
   - component: {fileID: 8290992378352836090}
+  - component: {fileID: 7215107238302417293}
   m_Layer: 0
   m_Name: SK_Goat_white
   m_TagString: Animal
@@ -2607,6 +2608,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42eef76fdb188b34aa83141a7c1a00e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7215107238302417293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952243856896319466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6070e0abe65bd44f90560cc2320fe1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6085852632381360929

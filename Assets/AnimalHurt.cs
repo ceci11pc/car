@@ -7,7 +7,7 @@ public class AnimalHurt : MonoBehaviour
 {
 
     private PlayerController player;
-    private IEnumerator coroutine;
+
 
     FMOD.Studio.EventInstance animalhit;
 
@@ -32,18 +32,12 @@ public class AnimalHurt : MonoBehaviour
             animalhit = FMODUnity.RuntimeManager.CreateInstance("event:/ANIMALHIT");
             animalhit.start();
             animalhit.release();
+            player.ScoreUpdate();
+        
 
-            coroutine = Wait(0.5f);
-            StartCoroutine(coroutine);
-
-
+            Debug.Log("YOUR SCOREEEE Animal hurt on trigger enter");
         }
     }
 
-    private IEnumerator Wait(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-        player.ScoreUpdate();
 
-    }
 }

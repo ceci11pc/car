@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     public float fowardInput;
     public float speed;
 
+    public float positionZ;
+
     public MeterScript speedMeter; //meter code
     public int currentSpeed; //meter code
     public int maxSpeed = 50; //meter code
     public int score;
     public Score playerScore;
-
+    public StaticVar staticVar;
     public GameObject menu;
 
     FMOD.Studio.EventInstance crash;
@@ -45,7 +47,7 @@ public class PlayerController : MonoBehaviour
         score = 0;
         speedMeter.SetMaxSpeed(maxSpeed); //meter code
         playerScore.SetScore(score);
-        
+        staticVar = GetComponent<StaticVar>();
 
     }
 
@@ -100,8 +102,11 @@ public class PlayerController : MonoBehaviour
             speed -= 0.5f;
         }    
             transform.Translate(speed * Time.deltaTime * Vector3.forward, Space.World);
+
+        if (transform.position.x < 5 && transform.position.x > - 5)
+        {
             transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
-        
+        }
         if (cancelInput == 1 && (GameObject.Find("PauseMenuCanvas Variant(Clone)") == false))
         {
             Instantiate(menu);
@@ -113,6 +118,7 @@ public class PlayerController : MonoBehaviour
             Destroy(GameObject.Find("Plane.035(Clone)"));
         }
 
+        positionZ = transform.position.z;
 
     }
 
@@ -157,10 +163,15 @@ public class PlayerController : MonoBehaviour
     public void ScoreUpdate()
     {
         score++;
+        Debug.Log("YOUR SCOREEEE player controler score update" + score);
         playerScore.SetScore(score);
         scoreup = FMODUnity.RuntimeManager.CreateInstance("event:/SCOREUP");
         scoreup.start();
         scoreup.release();
+        
+       
+        staticVar.UpdateScore(score);
+        
     }
 
 
@@ -179,7 +190,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Wait(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("GameOver");
 
     }
 }

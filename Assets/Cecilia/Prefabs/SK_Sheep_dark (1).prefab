@@ -580,6 +580,7 @@ GameObject:
   - component: {fileID: 1800368516277082702}
   - component: {fileID: 3670706329255354040}
   - component: {fileID: 2671287975103204437}
+  - component: {fileID: -1356526023913165485}
   m_Layer: 0
   m_Name: SK_Sheep_dark (1)
   m_TagString: Animal
@@ -704,6 +705,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42eef76fdb188b34aa83141a7c1a00e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1356526023913165485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770363453949785604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6070e0abe65bd44f90560cc2320fe1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2182773532349461959

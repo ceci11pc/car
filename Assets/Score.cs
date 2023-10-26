@@ -31,7 +31,7 @@ public class Score : MonoBehaviour
     {
        
         ScoreText.text = score.ToString();
-        Debug.Log("SCORE");
+        Debug.Log("YOUR SCOREEEE" + score);
 
     }
 }
