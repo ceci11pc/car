@@ -11,6 +11,9 @@ public class Timer : MonoBehaviour
     public bool TimerOn = false;
     
     public Text TimerText;
+
+    private int finnalCount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,18 +26,27 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (TimeLeft > 0)
         {
             TimeLeft -= Time.deltaTime;
             updateTimer(TimeLeft);
+            
         }
         else
         {
-            Debug.Log("TimeisUP");
+            
             TimeLeft = 0;
             TimerOn = false;
             SceneManager.LoadScene("GameOver");
         }
+
+        if (TimeLeft < 5 && TimeLeft > 0 && finnalCount != Mathf.FloorToInt(TimeLeft % 60))
+        {
+            finnalCount = Mathf.FloorToInt(TimeLeft % 60);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/COUNTDOWN");
+        }
+
     }
 
     void updateTimer(float currentTime)

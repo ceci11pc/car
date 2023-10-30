@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         }    
             transform.Translate(speed * Time.deltaTime * Vector3.forward, Space.World);
 
-        if (transform.position.x < 5 && transform.position.x > - 5)
+        if (transform.position.x < 4.5 && transform.position.x > - 4.5)
         {
             transform.Translate(Vector3.left * Time.deltaTime * turnSpeed * horizontalInput);
         }
@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Car")
         {
+
             float parameterValue = CalculateImpactVolume(collision.relativeVelocity.magnitude);
             if (parameterValue < minCollisionVolume)
             {
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour
             else if (parameterValue >= minCollisionVolume)
             {
                 float currentZ = transform.position.z;
-                Debug.Log("Choque mortal  " + minCollisionVolume + parameterValue);
+                
                 bigcrash = FMODUnity.RuntimeManager.CreateInstance("event:/BIGCRASH");
                 FMODUnity.RuntimeManager.AttachInstanceToGameObject(bigcrash, collision.gameObject.GetComponent<Transform>(), collision.gameObject.GetComponent<Rigidbody>());
                 bigcrash.start();
@@ -148,13 +149,13 @@ public class PlayerController : MonoBehaviour
                 speed = 0;
                 horizontalInput = 0f;
                 fowardInput = 0f;
-                coroutine = Wait(2.5f);
-                StartCoroutine(coroutine);
+                //coroutine = Wait(2.5f);
+               // StartCoroutine(coroutine);
 
                 
             }
 
-
+            Invoke("RestoreTransform", 2f);
         }
 
 
@@ -163,15 +164,20 @@ public class PlayerController : MonoBehaviour
     public void ScoreUpdate()
     {
         score++;
-        Debug.Log("YOUR SCOREEEE player controler score update" + score);
+        
+        staticVar.UpdateScore(score);
+
+        //un poco de delay en el score update y sonido para que no se superponga con el sonido de pisar el animal
+        Invoke("DelayScoreUpdate", 0.8f);
+    }
+
+    public void DelayScoreUpdate()
+
+    {
         playerScore.SetScore(score);
         scoreup = FMODUnity.RuntimeManager.CreateInstance("event:/SCOREUP");
         scoreup.start();
         scoreup.release();
-        
-       
-        staticVar.UpdateScore(score);
-        
     }
 
 
@@ -192,5 +198,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene("GameOver");
 
+    }
+
+    public void RestoreTransform()
+    {
+        transform.position = new Vector3(transform.position.x, 2.2f, transform.position.z);
+
+        transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
 }

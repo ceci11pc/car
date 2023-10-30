@@ -45,7 +45,7 @@ public class MaterialChecker : MonoBehaviour
         MaterialCheck();
         tyres.setParameterByID(materialId, Material);
         tyres.setParameterByID(directionId, Direction);
-        Debug.Log("material  " + Material );
+  
     }
 
     void OnDestroy()

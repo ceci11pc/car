@@ -29,13 +29,15 @@ public class AnimalHurt : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+         
+            //pause esto para probar el build en webgl
             animalhit = FMODUnity.RuntimeManager.CreateInstance("event:/ANIMALHIT");
             animalhit.start();
             animalhit.release();
             player.ScoreUpdate();
-        
+           
 
-            Debug.Log("YOUR SCOREEEE Animal hurt on trigger enter");
+
         }
     }
 

@@ -29,8 +29,8 @@ public class CollisionDetection : MonoBehaviour
         Debug.Log("collisionnnn 1");
         if (col.tag == "Player")
         {
-            randomPositionX = NextFloat(-3.14f, 2.77f);
-            offsetPosition = new Vector3(randomPositionX, 0.25f, 0);
+            randomPositionX = NextFloat(-3f, 2.77f);
+            offsetPosition = new Vector3(randomPositionX, 0.7f, 0);
 
             offsetAnimalPositionLeft = new Vector3(NextFloat(-15f, 0f), -0.45f, 0);
             offsetAnimalPositionRight = new Vector3(NextFloat(0f, 15f), -0.45f, 0);
@@ -62,8 +62,6 @@ public class CollisionDetection : MonoBehaviour
         //NO ANDA DESTROY DE ANIMALES
         if (animalLeft && animalLeft.transform.position.z < playerPosition.z)
         {
-
-            Debug.Log("ACA ANIMAL");
             Destroy(animalLeft);
         }
 

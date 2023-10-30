@@ -30,8 +30,8 @@ public class Score : MonoBehaviour
     public void SetScore(int score)
     {
        
-        ScoreText.text = score.ToString();
-        Debug.Log("YOUR SCOREEEE" + score);
+        ScoreText.text = "SCORE: " + score.ToString();
+       
 
     }
 }

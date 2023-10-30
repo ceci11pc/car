@@ -15,7 +15,7 @@ public class StaticVar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("static varrrr" + staticScore);
+     
     }
 
     public void UpdateScore(int score)

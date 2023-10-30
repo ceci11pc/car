@@ -17,6 +17,7 @@ public class ObstacleCarsMovement : MonoBehaviour
     void Update()
     {
         transform.Translate(-speed * Time.deltaTime * Vector3.forward, Space.World);
+       
 
      
     }
