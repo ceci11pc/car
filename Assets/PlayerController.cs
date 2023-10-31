@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     FMOD.Studio.EventInstance crash;
     FMOD.Studio.EventInstance bigcrash;
     FMOD.Studio.EventInstance scoreup;
+    
 
     private string[] collisionTag;
     private bool useParameter;
@@ -38,8 +39,6 @@ public class PlayerController : MonoBehaviour
 
     //0 = pause 1 = playing
     private int gameState;
-
-    private IEnumerator coroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -149,8 +148,7 @@ public class PlayerController : MonoBehaviour
                 speed = 0;
                 horizontalInput = 0f;
                 fowardInput = 0f;
-                //coroutine = Wait(2.5f);
-               // StartCoroutine(coroutine);
+       
 
                 
             }
@@ -193,12 +191,7 @@ public class PlayerController : MonoBehaviour
         return changeInValue * ((velocity = velocity / maxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
     }
 
-    private IEnumerator Wait(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene("GameOver");
 
-    }
 
     public void RestoreTransform()
     {

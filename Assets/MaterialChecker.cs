@@ -71,9 +71,7 @@ public class MaterialChecker : MonoBehaviour
                 else if (hit.collider.tag == "Terrain")
 
                     Material = 1f;
-                // else
-
-                // Material = 0f;
+          
             }
 
         }

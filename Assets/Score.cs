@@ -16,22 +16,13 @@ public class Score : MonoBehaviour
     void Start()
     {
         ScoreOn = true;
-       
-        
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-       
-    }
+
     public void SetScore(int score)
     {
        
         ScoreText.text = "SCORE: " + score.ToString();
-       
 
     }
 }

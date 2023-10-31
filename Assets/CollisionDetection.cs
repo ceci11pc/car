@@ -26,7 +26,6 @@ public class CollisionDetection : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("collisionnnn 1");
         if (col.tag == "Player")
         {
             randomPositionX = NextFloat(-3f, 2.77f);

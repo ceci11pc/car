@@ -9,10 +9,12 @@ public class Timer : MonoBehaviour
     public float InitialTime;
     public static float TimeLeft;
     public bool TimerOn = false;
-    
     public Text TimerText;
+    public int gameJustEnded = 0;
 
     private int finnalCount;
+
+    FMOD.Studio.EventInstance gameover;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +40,9 @@ public class Timer : MonoBehaviour
             
             TimeLeft = 0;
             TimerOn = false;
-            SceneManager.LoadScene("GameOver");
+            gameJustEnded++;
+            endSound();
+            Invoke("endScene", 1f);
         }
 
         if (TimeLeft < 5 && TimeLeft > 0 && finnalCount != Mathf.FloorToInt(TimeLeft % 60))
@@ -56,6 +60,22 @@ public class Timer : MonoBehaviour
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
         TimerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+    }
+
+    void endScene()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
+
+    void endSound()
+    {
+        if (gameJustEnded == 1)
+        {
+            gameover = FMODUnity.RuntimeManager.CreateInstance("event:/GAMEOVER");
+            gameover.start();
+            gameover.release();
+            
+        }
     }
 }
 

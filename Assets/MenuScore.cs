@@ -13,8 +13,7 @@ public class MenuScore : MonoBehaviour
     {
         
         scoreText.text = "SCORE:   " + StaticVar.staticScore.ToString();
-      
-        Debug.Log("static varrrr Menu" + StaticVar.staticScore);
+
     }
 
     // Update is called once per frame
