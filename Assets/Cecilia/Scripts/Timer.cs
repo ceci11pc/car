@@ -6,51 +6,44 @@ using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
-    public float InitialTime;
-    public static float TimeLeft;
-    public bool TimerOn = false;
-    public Text TimerText;
+    public float initialTime;
+    public static float timeLeft;
+    public bool timerOn = false;
+    public Text timerText;
     public int gameJustEnded = 0;
 
     private int finnalCount;
 
     FMOD.Studio.EventInstance gameover;
 
-    // Start is called before the first frame update
     void Start()
     {
-        TimerOn = true;
-        //lo pongo aca porque si no uso static en la variable, no la ve el gameending
+        timerOn = true;
 
-        TimeLeft = InitialTime;
+        timeLeft = initialTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if (TimeLeft > 0)
+        if (timeLeft > 0)
         {
-            TimeLeft -= Time.deltaTime;
-            updateTimer(TimeLeft);
-            
+            timeLeft -= Time.deltaTime;
+            updateTimer(timeLeft);     
         }
         else
-        {
-            
-            TimeLeft = 0;
-            TimerOn = false;
+        {   
+            timeLeft = 0;
+            timerOn = false;
             gameJustEnded++;
             endSound();
             Invoke("endScene", 1f);
         }
 
-        if (TimeLeft < 5 && TimeLeft > 0 && finnalCount != Mathf.FloorToInt(TimeLeft % 60))
+        if (timeLeft < 5 && timeLeft > 0 && finnalCount != Mathf.FloorToInt(timeLeft % 60))
         {
-            finnalCount = Mathf.FloorToInt(TimeLeft % 60);
+            finnalCount = Mathf.FloorToInt(timeLeft % 60);
             FMODUnity.RuntimeManager.PlayOneShot("event:/COUNTDOWN");
         }
-
     }
 
     void updateTimer(float currentTime)
@@ -59,7 +52,7 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(currentTime / 60);
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
-        TimerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 
     void endScene()
@@ -73,8 +66,7 @@ public class Timer : MonoBehaviour
         {
             gameover = FMODUnity.RuntimeManager.CreateInstance("event:/GAMEOVER");
             gameover.start();
-            gameover.release();
-            
+            gameover.release();  
         }
     }
 }

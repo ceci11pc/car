@@ -6,15 +6,9 @@ public class EngineSound : MonoBehaviour
 {
 
     FMOD.Studio.EventInstance engine;
-    
     FMOD.Studio.PARAMETER_ID  loadId;
 
     PlayerController Car;
-
-    void Awake()
-    {
-
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +22,8 @@ public class EngineSound : MonoBehaviour
         engineEventDescription.getParameterDescriptionByName("Accel", out engineLoadParameterDescription);
 
         loadId = engineLoadParameterDescription.id;
-        
 
         Car = GetComponent<PlayerController>();
-        
         engine.start();
         
     }
@@ -39,11 +31,8 @@ public class EngineSound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("RPM", Car.speed);
-        
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("RPM", Car.speed);  
         engine.setParameterByID(loadId, Car.fowardInput);
-        
-
     }
 
     void OnDestroy()

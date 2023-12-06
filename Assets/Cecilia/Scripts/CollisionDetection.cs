@@ -5,24 +5,19 @@ using UnityEngine.UIElements;
 
 public class CollisionDetection : MonoBehaviour
 {
-    //offset para que las ruedas toquen justo la ruta y la posicion X sea random
+    //when Player enters the trigger the road is translated, and obstacles (cars and animals are generated at random positions)
     private float randomPositionX;
     private Vector3 offsetPosition;
     private Vector3 offsetAnimalPositionLeft;
     private Vector3 offsetAnimalPositionRight;
-    private GameObject car;
     private Vector3 playerPosition;
+    private GameObject car;
     private GameObject animalRight;
     private GameObject animalLeft;
     public GameObject roadTyle;
     public GameObject[] animals ;
     public GameObject[] carObstacles;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -58,7 +53,7 @@ public class CollisionDetection : MonoBehaviour
         }
 
 
-        //NO ANDA DESTROY DE ANIMALES
+        //to check
         if (animalLeft && animalLeft.transform.position.z < playerPosition.z)
         {
             Destroy(animalLeft);

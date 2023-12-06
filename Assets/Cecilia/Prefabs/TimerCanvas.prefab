@@ -115,9 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee2c4490379437499e08737e5ed80cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialTime: 10000
-  TimerOn: 0
-  TimerText: {fileID: 1086879869862740195}
+  initialTime: 60
+  timerOn: 0
+  timerText: {fileID: 0}
+  gameJustEnded: 0
 --- !u!1 &5698998044939736876
 GameObject:
   m_ObjectHideFlags: 0

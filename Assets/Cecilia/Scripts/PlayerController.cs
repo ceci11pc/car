@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
-
     public float revs;
     public float fowardInput;
     public float speed;
@@ -24,8 +23,7 @@ public class PlayerController : MonoBehaviour
 
     FMOD.Studio.EventInstance crash;
     FMOD.Studio.EventInstance bigcrash;
-    FMOD.Studio.EventInstance scoreup;
-    
+    FMOD.Studio.EventInstance scoreup;  
 
     private string[] collisionTag;
     private bool useParameter;
@@ -40,38 +38,32 @@ public class PlayerController : MonoBehaviour
     //0 = pause 1 = playing
     private int gameState;
 
-    // Start is called before the first frame update
     void Start()
     {
         score = 0;
         speedMeter.SetMaxSpeed(maxSpeed); //meter code
         playerScore.SetScore(score);
         staticVar = GetComponent<StaticVar>();
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentSpeed = (int)speed;
 
         speedMeter.SetSpeed(currentSpeed); //meter code
         cancelInput = Input.GetAxis("Cancel");
-
-        
+     
         horizontalInput = Input.GetAxis("Horizontal");
         fowardInput = Input.GetAxis("Vertical");
-        
-        
-     
-        //si esta acelerando y la speed no llegó al max, y revs no llegó al max sube la speed y revs
+
+        //if input is accelerating and speed not max speed and revs not max revs, speed and revs up
         if (fowardInput > 0 && speed < 50 && revs < 1)
         {
             speed += 0.1f;
             revs += 0.005f;
         }
 
-        //si esta acelerando y la speed no llegó al max, y revs sí llegó al max baja la speed y revs
+        //if input is accelerating and speed not max speed and revs = max revs, speed and revs down
         else if (fowardInput > 0 && speed < 50 && revs >= 1)
         {
             speed -= 2f;
@@ -79,23 +71,26 @@ public class PlayerController : MonoBehaviour
         }
 
         //si esta acelerando y la speed llegó al max, se mantiene
+        //if input is accelerating and speed is max speed , speed doesn't change
         else if (fowardInput > 0 && speed >= 50)
         {
             speed = 50;
         }
-        //si no está acelerando y no está frenado, bajá la speed
+
+        //if input is not accelerating, and not stoppped, speed down
         else if (fowardInput <= 0 && speed >= 0.5f)
         {
             speed -= 0.5f;
             revs -= 0.1f;
         }
-        //sino, la speed es 0
+        //else, speed = 0
         else
         {
             speed = 0f;
             revs = 0;
         }
 
+        //Pause state
         if (GameObject.Find("PauseMenuCanvas Variant(Clone)") && speed >= 0.5f )
         {
             speed -= 0.5f;
@@ -121,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    //different crash sound depending on crash magnitude
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Car")
@@ -147,12 +142,8 @@ public class PlayerController : MonoBehaviour
                 bigcrash.release();
                 speed = 0;
                 horizontalInput = 0f;
-                fowardInput = 0f;
-       
-
-                
+                fowardInput = 0f;             
             }
-
             Invoke("RestoreTransform", 2f);
         }
 
@@ -165,7 +156,6 @@ public class PlayerController : MonoBehaviour
         
         staticVar.UpdateScore(score);
 
-        //un poco de delay en el score update y sonido para que no se superponga con el sonido de pisar el animal
         Invoke("DelayScoreUpdate", 0.8f);
     }
 
@@ -191,11 +181,9 @@ public class PlayerController : MonoBehaviour
         return changeInValue * ((velocity = velocity / maxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
     }
 
-
-
     public void RestoreTransform()
     {
-        transform.position = new Vector3(transform.position.x, 2.2f, transform.position.z);
+        transform.position = new Vector3(0f, 2.2f, transform.position.z);
 
         transform.localRotation = Quaternion.Euler(0, 180, 0);
     }

@@ -14,7 +14,6 @@ public class Menu : MonoBehaviour
 
     public void OnPlayButtonOnPause()
     {
-        
         menu = GameObject.Find("PauseMenuCanvas Variant(Clone)");
         Destroy(menu);
     }
@@ -23,7 +22,4 @@ public class Menu : MonoBehaviour
     {
         Application.Quit();
     }
-
-
-
 }
