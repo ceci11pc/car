@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Car
+  - Road
+  - Terrain
+  - Left
+  - Right
+  - Animal
   layers:
   - Default
   - TransparentFX
